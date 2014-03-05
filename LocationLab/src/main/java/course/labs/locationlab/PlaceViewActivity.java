@@ -43,12 +43,14 @@ public class PlaceViewActivity extends ListActivity implements LocationListener 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 
-		// TODO - Set up the app's user interface
+		// TODO 1 - Set up the app's user interface
 		// This class is a ListActivity, so it has its own ListView 
 		// ListView's adapter should be a PlaceViewAdapter
+		super.onCreate(savedInstanceState);
+    		setContentView(R.layout.activity_PlaceViewActivity);       //???? pendiente revisar
+		mAdapter = new PlaceViewAdapter(getApplicationContext());
 
-
-		// TODO - add a footerView to the ListView
+		// TODO 2 - add a footerView to the ListView
 		// You can use footer_view.xml to define the footer
 		// footerView must respond to user clicks.
 		// Must handle 3 cases:
@@ -56,7 +58,9 @@ public class PlaceViewActivity extends ListActivity implements LocationListener 
 		// 2) The current location has been seen before - issue Toast message
 		// 3) There is no current location - response is up to you. The best
 		// solution is to disable the footerView until you have a location.
-
+ 
+ 		// Attach the adapter to this ListActivity's ListView
+		getListView().setAdapter(mAdapter);
 
 	}
 
