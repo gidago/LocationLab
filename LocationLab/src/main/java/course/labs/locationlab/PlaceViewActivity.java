@@ -1,21 +1,18 @@
 package course.labs.locationlab;
 
-import java.util.ArrayList;
-
 import android.app.ListActivity;
-import android.content.Context;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
-import android.view.View;
-import android.view.View.OnClickListener;
-import android.widget.ListView;
-import android.widget.Toast;
+import android.widget.TextView;
+
+import java.util.ArrayList;
 
 public class PlaceViewActivity extends ListActivity implements LocationListener {
 	private static final long FIVE_MINS = 5 * 60 * 1000;
@@ -40,15 +37,22 @@ public class PlaceViewActivity extends ListActivity implements LocationListener 
 	// A fake location provider used for testing
 	private MockLocationProvider mMockLocationProvider;
 
-	@Override
+    public PlaceViewActivity() {
+    }
+
+    @Override
 	protected void onCreate(Bundle savedInstanceState) {
 
 		// TODO 1 - Set up the app's user interface
 		// This class is a ListActivity, so it has its own ListView 
 		// ListView's adapter should be a PlaceViewAdapter
 		super.onCreate(savedInstanceState);
-    		setContentView(R.layout.activity_PlaceViewActivity);       //???? pendiente revisar
-		mAdapter = new PlaceViewAdapter(getApplicationContext());
+
+      //  mLocationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER,
+      // mMinTime, mMinDistance, (LocationListener) mMockLocationProvider);
+        mLocationManager = (LocationManager) getSystemService(LOCATION_SERVICE);
+
+        mAdapter = new PlaceViewAdapter(getApplicationContext());
 
 		// TODO 2 - add a footerView to the ListView
 		// You can use footer_view.xml to define the footer
@@ -58,8 +62,14 @@ public class PlaceViewActivity extends ListActivity implements LocationListener 
 		// 2) The current location has been seen before - issue Toast message
 		// 3) There is no current location - response is up to you. The best
 		// solution is to disable the footerView until you have a location.
- 
- 		// Attach the adapter to this ListActivity's ListView
+
+        LayoutInflater inflater=getLayoutInflater();
+        TextView footer=(TextView) inflater.inflate(R.layout.footer_view, null);
+        getListView().addFooterView(footer);
+
+
+
+        // Attach the adapter to this ListActivity's ListView
 		getListView().setAdapter(mAdapter);
 
 	}
@@ -71,12 +81,15 @@ public class PlaceViewActivity extends ListActivity implements LocationListener 
 		mMockLocationProvider = new MockLocationProvider(
 				LocationManager.NETWORK_PROVIDER, this);
 
-		//TODO - Check NETWORK_PROVIDER for an existing location reading.
+		//TODO 3 - Check NETWORK_PROVIDER for an existing location reading.
 		// Only keep this last reading if it is fresh - less than 5 minutes old.
 
 
-		// TODO - register to receive location updates from NETWORK_PROVIDER
 
+		// TODO 4 - register to receive location updates from NETWORK_PROVIDER
+
+        mLocationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER,
+                mMinTime, mMinDistance, (LocationListener) mMockLocationProvider);
 
 	}
 
@@ -85,7 +98,7 @@ public class PlaceViewActivity extends ListActivity implements LocationListener 
 
 		mMockLocationProvider.shutdown();
 
-		// TODO - unregister for location updates
+		// TODO 5 - unregister for location updates
 
 
 		
@@ -102,7 +115,7 @@ public class PlaceViewActivity extends ListActivity implements LocationListener 
 	@Override
 	public void onLocationChanged(Location currentLocation) {
 
-		// TODO - Handle location updates
+		// TODO 6 - Handle location updates
 		// Cases to consider
 		// 1) If there is no last location, keep the current location.
 		// 2) If the current location is older than the last location, ignore

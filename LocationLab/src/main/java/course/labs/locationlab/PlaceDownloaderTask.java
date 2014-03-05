@@ -1,5 +1,18 @@
 package course.labs.locationlab;
 
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.location.Location;
+import android.os.AsyncTask;
+import android.util.Log;
+
+import org.w3c.dom.DOMException;
+import org.w3c.dom.Document;
+import org.w3c.dom.Node;
+import org.w3c.dom.NodeList;
+import org.xml.sax.InputSource;
+import org.xml.sax.SAXException;
+
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
@@ -14,22 +27,9 @@ import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
 
-import org.w3c.dom.DOMException;
-import org.w3c.dom.Document;
-import org.w3c.dom.Node;
-import org.w3c.dom.NodeList;
-import org.xml.sax.InputSource;
-import org.xml.sax.SAXException;
-
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.location.Location;
-import android.os.AsyncTask;
-import android.util.Log;
-
 public class PlaceDownloaderTask extends AsyncTask<Location, Void, PlaceRecord> {
 
-	// TODO - put your www.geonames.org account name here.
+	// TODO 1 - put your www.geonames.org account name here.
 	private static String USERNAME = "YOUR USERNAME HERE";
 
 	private HttpURLConnection mHttpUrl;
