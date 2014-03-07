@@ -30,7 +30,7 @@ import javax.xml.parsers.ParserConfigurationException;
 public class PlaceDownloaderTask extends AsyncTask<Location, Void, PlaceRecord> {
 
 	// TODO 1 - put your www.geonames.org account name here.
-	private static String USERNAME = "YOUR USERNAME HERE";
+	private static String USERNAME = "isidro";
 
 	private HttpURLConnection mHttpUrl;
 	private WeakReference<PlaceViewActivity> mParent;
